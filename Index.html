@@ -1,0 +1,343 @@
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#fafafa">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>A Question For You</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body {
+font-family: 'Inter', sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+/* Prevent pull-to-refresh on mobile to feel like an app */
+overscroll-behavior-y: none;
+}
+/* Sophisticated Mesh Gradient */
+.mesh-background {
+background-color: #fafafa;
+background-image:
+radial-gradient(at 0% 0%, hsla(350, 100%, 98%, 1) 0, transparent 55%),
+radial-gradient(at 50% 0%, hsla(330, 100%, 98%, 1) 0, transparent 50%),
+radial-gradient(at 100% 100%, hsla(350, 100%, 98%, 1) 0, transparent 55%);
+}
+/* Floating Animation */
+@keyframes subtle-float {
+0%, 100% { transform: translateY(0) rotate(0deg); }
+50% { transform: translateY(-15px) rotate(2deg); }
+}
+.animate-float {
+animation: subtle-float 8s ease-in-out infinite;
+}
+/* Staggered Reveal */
+.reveal-item {
+opacity: 0;
+transform: translateY(12px);
+animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes reveal-up {
+to { opacity: 1; transform: translateY(0); }
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+/* Button Shine */
+.btn-shine-overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(to right, transparent, rgba(255,255,255,0.15), transparent);
+transform: skewX(-20deg) translateX(-150%);
+transition: transform 0.6s;
+}
+.btn-trigger:hover .btn-shine-overlay {
+transform: skewX(-20deg) translateX(150%);
+}
+/* Gradient Text Animation */
+@keyframes gradient-pan {
+0% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
+}
+.text-gradient-anim {
+background-size: 200% auto;
+animation: gradient-pan 4s linear infinite;
+}
+/* Confetti physics */
+.confetti-piece {
+position: fixed;
+animation: fall linear forwards;
+z-index: 60;
+pointer-events: none;
+}
+@keyframes fall {
+0% { transform: translateY(-5vh) rotate(0deg) scale(0.5); opacity: 0; }
+10% { opacity: 1; }
+100% { transform: translateY(105vh) rotate(720deg) scale(1); opacity: 0; }
+}
+</style></head>
+<body class="mesh-background min-h-screen relative overflow-x-hidden text-slate-600 selection:bg-rose-100 selection:text-rose-900 flex flex-col justify-between">
+
+    <!-- Ambient Background Elements -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div class="absolute top-[15%] left-[10%] text-rose-100/60 text-8xl animate-float" style="animation-delay: 0s;">
+            <iconify-icon icon="solar:heart-linear" stroke-width="1.5"></iconify-icon>
+        </div>
+        <div class="absolute bottom-[25%] right-[15%] text-rose-100/60 text-7xl animate-float" style="animation-delay: -2s;">
+            <iconify-icon icon="solar:stars-minimalistic-linear" stroke-width="1.5"></iconify-icon>
+        </div>
+        <div class="absolute top-[40%] right-[30%] text-rose-50/80 text-5xl animate-float" style="animation-delay: -4s;">
+            <iconify-icon icon="solar:cupid-linear" stroke-width="1.5"></iconify-icon>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="w-full flex justify-center py-8 z-40 fixed top-0 left-0 right-0">
+        <div class="bg-white/70 backdrop-blur-md border border-white/60 shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] px-5 py-2 rounded-full flex items-center gap-3 transition-all hover:shadow-sm">
+            <span class="text-[10px] font-medium tracking-widest uppercase text-slate-500">
+                Encrypted
+            </span>
+            <div class="h-1 w-1 rounded-full bg-rose-400/80"></div>
+            <span class="text-[10px] font-medium tracking-widest uppercase text-slate-900">
+                For You
+            </span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center px-6 pt-32 pb-20 max-w-5xl mx-auto w-full z-10 relative">
+        
+        <!-- Badge -->
+        <div class="reveal-item inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/60 border border-slate-200/60 text-rose-600 shadow-sm mb-10">
+            <iconify-icon icon="solar:bell-bing-linear" stroke-width="1.5" class="text-xs"></iconify-icon>
+            <span class="text-[10px] font-medium tracking-wide uppercase text-slate-600">
+                Priority Message
+            </span>
+        </div>
+
+        <!-- Hero Headline -->
+        <div class="reveal-item delay-1 text-center mb-8">
+            <h1 class="text-5xl md:text-7xl font-medium tracking-tight text-slate-900 leading-[1.05]">
+                Will you be my
+                <span class="block sm:inline mt-1 sm:mt-0 text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-500 to-rose-400 text-gradient-anim pb-2">
+                    Valentine?
+                </span>
+            </h1>
+        </div>
+
+        <!-- Subtext -->
+        <p class="reveal-item delay-2 text-center text-lg md:text-xl font-light text-slate-500 max-w-xl mx-auto leading-relaxed mb-12">
+            I've curated a collection of moments for us, but the experience is incomplete without its main character: <span class="font-medium text-slate-900">You</span>.
+        </p>
+
+        <!-- Actions -->
+        <div class="reveal-item delay-3 flex flex-col sm:flex-row items-center justify-center gap-5 w-full sm:w-auto relative min-h-[64px]">
+            <button onclick="acceptProposal()" class="btn-trigger group relative w-full sm:w-auto px-10 py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-lg shadow-slate-200/50 transition-all duration-300 hover:-translate-y-0.5 overflow-hidden active:scale-95">
+                <div class="btn-shine-overlay"></div>
+                <div class="flex items-center justify-center gap-3 relative z-10">
+                    <span class="text-sm font-medium tracking-wide">Yes, Absolutely</span>
+                    <iconify-icon icon="solar:heart-angle-linear" stroke-width="1.5" class="text-lg text-rose-300"></iconify-icon>
+                </div>
+            </button>
+
+            <button id="btn-no" onmouseover="dodgeButton()" onclick="dodgeButton()" class="w-full sm:w-auto px-10 py-3.5 bg-white/40 hover:bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-500 hover:text-slate-800 rounded-xl transition-all duration-200 flex items-center justify-center gap-2">
+                <span class="text-sm font-medium tracking-wide">No, thanks</span>
+            </button>
+        </div>
+
+        <!-- Interactive Notes -->
+        <div class="reveal-item delay-4 mt-20 flex flex-col items-center gap-4 w-full">
+            <p class="text-[10px] font-medium tracking-widest uppercase text-slate-400/80">
+                Hidden Metadata
+            </p>
+            <div class="flex gap-4">
+                <button onclick="showSecret('You make reality better than dreams ✨')" class="group w-14 h-14 rounded-2xl bg-white/40 border border-white/60 hover:border-rose-200 shadow-sm text-slate-400 hover:text-rose-500 hover:bg-white/80 transition-all duration-300 flex items-center justify-center hover:scale-105 active:scale-95">
+                    <iconify-icon icon="solar:letter-heart-linear" class="text-2xl transition-transform group-hover:rotate-12" stroke-width="1.5"></iconify-icon>
+                </button>
+                <button onclick="showSecret('I admire your kindness deeply 🤍')" class="group w-14 h-14 rounded-2xl bg-white/40 border border-white/60 hover:border-rose-200 shadow-sm text-slate-400 hover:text-rose-500 hover:bg-white/80 transition-all duration-300 flex items-center justify-center hover:scale-105 active:scale-95">
+                    <iconify-icon icon="solar:lock-password-linear" class="text-2xl transition-transform group-hover:rotate-12" stroke-width="1.5"></iconify-icon>
+                </button>
+                <button onclick="showSecret('You are my favorite notification 🔔')" class="group w-14 h-14 rounded-2xl bg-white/40 border border-white/60 hover:border-rose-200 shadow-sm text-slate-400 hover:text-rose-500 hover:bg-white/80 transition-all duration-300 flex items-center justify-center hover:scale-105 active:scale-95">
+                    <iconify-icon icon="solar:star-shine-linear" class="text-2xl transition-transform group-hover:rotate-12" stroke-width="1.5"></iconify-icon>
+                </button>
+            </div>
+            <div id="secret-display" class="h-6 text-sm font-medium text-rose-600 transition-all duration-300 opacity-0 translate-y-2"></div>
+        </div>
+
+        <!-- Grid -->
+        <div class="reveal-item delay-4 mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+            <!-- Card 1 -->
+            <div class="group p-8 rounded-2xl bg-white/30 border border-white/50 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.05)] backdrop-blur-md hover:bg-white/60 transition-all duration-300 hover:shadow-lg hover:shadow-rose-100/20">
+                <div class="h-12 w-12 rounded-xl bg-white border border-slate-100 text-rose-500 flex items-center justify-center mb-5 shadow-sm group-hover:scale-105 transition-transform duration-300">
+                    <iconify-icon icon="solar:sticker-smile-circle-2-linear" stroke-width="1.5" class="text-2xl"></iconify-icon>
+                </div>
+                <h3 class="text-sm font-medium text-slate-900 mb-3 tracking-tight">
+                    Endless Laughter
+                </h3>
+                <p class="text-xs font-light text-slate-500 leading-relaxed">
+                    Prepared to deploy my finest (and worst) jokes solely to capture that smile of yours.
+                </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="group p-8 rounded-2xl bg-white/30 border border-white/50 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.05)] backdrop-blur-md hover:bg-white/60 transition-all duration-300 hover:shadow-lg hover:shadow-rose-100/20">
+                <div class="h-12 w-12 rounded-xl bg-white border border-slate-100 text-rose-500 flex items-center justify-center mb-5 shadow-sm group-hover:scale-105 transition-transform duration-300">
+                    <iconify-icon icon="solar:crown-star-linear" stroke-width="1.5" class="text-2xl"></iconify-icon>
+                </div>
+                <h3 class="text-sm font-medium text-slate-900 mb-3 tracking-tight">Curated For You</h3>
+                <p class="text-xs font-light text-slate-500 leading-relaxed">
+                    A tailored experience focusing entirely on your happiness. You deserve nothing less.
+                </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="group p-8 rounded-2xl bg-white/30 border border-white/50 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.05)] backdrop-blur-md hover:bg-white/60 transition-all duration-300 hover:shadow-lg hover:shadow-rose-100/20">
+                <div class="h-12 w-12 rounded-xl bg-white border border-slate-100 text-rose-500 flex items-center justify-center mb-5 shadow-sm group-hover:scale-105 transition-transform duration-300">
+                    <iconify-icon icon="solar:camera-minimalistic-linear" stroke-width="1.5" class="text-2xl"></iconify-icon>
+                </div>
+                <h3 class="text-sm font-medium text-slate-900 mb-3 tracking-tight">
+                    Core Memories
+                </h3>
+                <p class="text-xs font-light text-slate-500 leading-relaxed">
+                    Let's capture another chapter. I'm looking forward to every second spent with you.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-8 text-center relative z-10">
+        <p class="text-[10px] text-slate-400 font-medium tracking-widest uppercase opacity-60">
+            Crafted with intent © 2024
+        </p>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-700 bg-slate-900/10 backdrop-blur-xl">
+        <div id="modal-content" class="relative bg-white/90 backdrop-blur-2xl border border-white shadow-2xl rounded-2xl p-10 max-w-sm w-full mx-4 scale-95 transition-all duration-500 translate-y-4">
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 bg-white rounded-full flex items-center justify-center text-rose-500 border border-slate-100 shadow-xl">
+                <iconify-icon icon="solar:heart-bold" class="text-5xl animate-pulse drop-shadow-sm"></iconify-icon>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <h2 class="text-2xl font-medium tracking-tight text-slate-900 mb-3">
+                    It's a Date!
+                </h2>
+                <p class="text-sm font-light text-slate-500 leading-relaxed mb-8">
+                    You've just made my entire year. Get ready for something truly special.
+                </p>
+                <div class="inline-flex items-center gap-3 px-5 py-3 bg-slate-50 rounded-lg border border-slate-100 text-slate-600 w-full justify-center">
+                    <iconify-icon icon="solar:calendar-mark-linear" class="text-rose-500 text-lg"></iconify-icon>
+                    <span class="text-xs font-medium uppercase tracking-wide">Feb 14 · 7:00 PM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('btn-no');
+        const successModal = document.getElementById('success-modal');
+        const modalContent = document.getElementById('modal-content');
+        let moveCount = 0;
+
+        function showSecret(message) {
+            const display = document.getElementById('secret-display');
+            display.style.opacity = '0';
+            display.style.transform = 'translateY(5px)';
+            
+            setTimeout(() => {
+                display.innerText = message;
+                display.style.opacity = '1';
+                display.style.transform = 'translateY(0)';
+            }, 200);
+        }
+
+        function dodgeButton() {
+            moveCount++;
+            const phrases = [
+                "Are you sure?",
+                "Reconsider?",
+                "Think again...",
+                "Wait, really?",
+                "Pretty please?",
+                "Don't do this!"
+            ];
+
+            const span = btnNo.querySelector('span');
+            if (moveCount <= phrases.length) {
+                span.innerText = phrases[moveCount - 1];
+            }
+
+            // Mobile logic
+            if (window.innerWidth < 768 && moveCount > 4) {
+                btnNo.style.opacity = '0';
+                btnNo.style.pointerEvents = 'none';
+                setTimeout(acceptProposal, 600);
+                return;
+            }
+
+            // Calculations
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            
+            // Boundary padding
+            const padding = 50; 
+            const btnRect = btnNo.getBoundingClientRect();
+            
+            let newLeft = Math.random() * (vw - btnRect.width - padding * 2) + padding;
+            let newTop = Math.random() * (vh - btnRect.height - padding * 2) + padding;
+
+            btnNo.style.position = 'fixed';
+            btnNo.style.zIndex = '50';
+            btnNo.style.transition = 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)'; // Bouncy transition
+            btnNo.style.left = `${newLeft}px`;
+            btnNo.style.top = `${newTop}px`;
+            btnNo.style.transform = `rotate(${Math.random() * 12 - 6}deg)`;
+        }
+
+        function acceptProposal() {
+            if(btnNo) btnNo.style.display = 'none';
+            
+            successModal.classList.remove('opacity-0', 'pointer-events-none');
+            modalContent.classList.remove('scale-95', 'translate-y-4');
+            modalContent.classList.add('scale-100', 'translate-y-0');
+
+            fireConfetti();
+        }
+
+        function fireConfetti() {
+            const icons = ['heart-bold', 'star-bold', 'music-note-bold', 'gift-bold'];
+            const colors = ['#fb7185', '#f43f5e', '#e11d48', '#fda4af', '#881337'];
+            const duration = 3000;
+            const end = Date.now() + duration;
+
+            const interval = setInterval(() => {
+                if (Date.now() > end) {
+                    return clearInterval(interval);
+                }
+
+                const heart = document.createElement('div');
+                const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                heart.innerHTML = `<iconify-icon icon="solar:${randomIcon}"></iconify-icon>`;
+                heart.className = 'confetti-piece';
+                
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = -50 + 'px';
+                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.fontSize = (Math.random() * 24 + 16) + 'px';
+                heart.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+                
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }, 50);
+        }
+    </script>
+
+</body></html>
